@@ -12,6 +12,8 @@ public class TimeManager : MonoBehaviour
 
     const float scaleWait = 4.0f;
 
+    bool isRotating = false;
+
     int lastTime;
     float timer;
 
@@ -45,9 +47,10 @@ public class TimeManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
-        {
             ResetTime();
-        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !isRotating)
+            StartCoroutine(RotateObjects(Random.Range(0.25f, 0.75f)));
     }
 
     private void ResetTime()
@@ -95,5 +98,20 @@ public class TimeManager : MonoBehaviour
 
         transformArray[0].localScale = ls0 * multValue;
         transformArray[1].localScale = ls1 * multValue;
+    }
+
+    IEnumerator RotateObjects(float randomDelay)
+    {
+        isRotating = true;
+
+        for (int i = 0; i < 4; i++)
+        {
+            transformArray[0].Rotate(0f, 0f, 90f);
+            transformArray[1].Rotate(0f, 0f, 90f);
+            yield return new WaitForSeconds(randomDelay);
+            Debug.Log("don m8");
+        }
+
+        isRotating = false;
     }
 }
