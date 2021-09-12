@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    [SerializeField]
+    Transform[] transformArray;
+
+    const float moveWait = 2.0f;
+
     int lastTime;
     float timer;
 
     void Start()
     {
+        Camera.main.orthographic = true;
+        Camera.main.orthographicSize = 2.0f;
         ResetTime();
     }
 
