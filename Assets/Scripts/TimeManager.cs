@@ -10,6 +10,8 @@ public class TimeManager : MonoBehaviour
     const float moveWait = 2.0f;
     float nextTime = moveWait;
 
+    const float scaleWait = 4.0f;
+
     int lastTime;
     float timer;
 
@@ -52,6 +54,10 @@ public class TimeManager : MonoBehaviour
     {
         timer = 0;
         lastTime = 0;
+        nextTime = moveWait;
+
+        CancelInvoke("ScaleObjects");
+        InvokeRepeating("ScaleObjects", scaleWait, scaleWait);
     }
 
     private void MoveObjects(bool flipH)
@@ -74,5 +80,20 @@ public class TimeManager : MonoBehaviour
 
         transformArray[0].position = p0;
         transformArray[1].position = p1;
+    }
+
+    private void ScaleObjects()
+    {
+        Vector3 ls0 = transformArray[0].localScale;
+        Vector3 ls1 = transformArray[1].localScale;
+
+        float multValue;
+        if (ls0.x > 1.5f || ls1.x > 1.5f)
+            multValue = 1f / 1.2f;
+        else
+            multValue = 1.2f;
+
+        transformArray[0].localScale = ls0 * multValue;
+        transformArray[1].localScale = ls1 * multValue;
     }
 }
