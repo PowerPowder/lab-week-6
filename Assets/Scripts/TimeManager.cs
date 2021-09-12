@@ -13,5 +13,11 @@ public class TimeManager : MonoBehaviour
             Debug.Log(lastTime);
             lastTime++;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Time.timeScale = (Time.timeScale == 1f ? 0f : 1f);
+            Debug.Log("Spacebar pressed");
+        }
     }
 }
